@@ -5,7 +5,7 @@ import 'package:flutter/src/foundation/key.dart';
 import 'package:flutter/src/widgets/framework.dart';
 
 class AppPage extends StatefulWidget {
-  AppPage({Key? key}) : super(key: key);
+  const AppPage({Key? key}) : super(key: key);
 
   @override
   State<AppPage> createState() => _AppPageState();
@@ -14,30 +14,41 @@ class AppPage extends StatefulWidget {
 class _AppPageState extends State<AppPage> {
   Random random = Random();
   int x = 0;
+  Color _color = Colors.teal;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      appBar: AppBar(
+        title: Center(
+          child: Text(
+            'Lottery App',
+            style: TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+          ),
+        ),
+      ),
       body: SafeArea(
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
+            const Center(
               child: Text(
                 'Lottery winning number is 5',
                 style: TextStyle(fontSize: 24),
               ),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
-            Container(
+            AnimatedContainer(
               height: x == 5 ? 600 : 250,
               width: 300,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.circular(10),
                 color: x == 5 ? Colors.teal : Colors.grey.withOpacity(.3),
               ),
+              duration: const Duration(seconds: 1),
+              curve: Curves.fastOutSlowIn,
               child: Padding(
                 padding: const EdgeInsets.all(15),
                 child: x == 5
@@ -45,12 +56,12 @@ class _AppPageState extends State<AppPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.done_all,
                             size: 40,
                             color: Colors.green,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -63,12 +74,12 @@ class _AppPageState extends State<AppPage> {
                         mainAxisAlignment: MainAxisAlignment.center,
                         crossAxisAlignment: CrossAxisAlignment.center,
                         children: [
-                          Icon(
+                          const Icon(
                             Icons.error,
                             size: 40,
                             color: Colors.red,
                           ),
-                          SizedBox(
+                          const SizedBox(
                             height: 10,
                           ),
                           Text(
@@ -86,9 +97,17 @@ class _AppPageState extends State<AppPage> {
         onPressed: () {
           x = random.nextInt(6);
           print(x);
-          setState(() {});
+
+          setState(() {
+            final _color = Color.fromRGBO(
+              random.nextInt(256),
+              random.nextInt(256),
+              random.nextInt(256),
+              1,
+            );
+          });
         },
-        child: Icon(Icons.refresh),
+        child: const Icon(Icons.refresh),
       ),
     );
   }
