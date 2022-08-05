@@ -31,14 +31,14 @@ class _AppPageState extends State<AppPage> {
           mainAxisAlignment: MainAxisAlignment.center,
           crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            const Center(
-              child: Text(
-                'Lottery winning number is 5',
-                style: TextStyle(fontSize: 24),
+            TextFormField(
+              keyboardType: TextInputType.phone,
+              cursorColor: Colors.red,
+              decoration: InputDecoration(
+                filled: true,
+                fillColor: Color.fromARGB(255, 3, 51, 5),
+                hintText: 'Email',
               ),
-            ),
-            const SizedBox(
-              height: 10,
             ),
             AnimatedContainer(
               height: x == 5 ? 600 : 250,
